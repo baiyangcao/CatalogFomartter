@@ -5,9 +5,8 @@ from XmlGenerator import XmlGenerator
 
 
 class CatalogFormatter:
-    def __init__(self, excelpath, outputpath, max_depth, start_row=0):
+    def __init__(self, excelpath, max_depth, start_row=0):
         self.excelpath = excelpath
-        self.outputpath = outputpath
         self.max_depth = max_depth
         self.start_row = start_row
         wb = load_workbook(excelpath)
@@ -18,6 +17,7 @@ class CatalogFormatter:
             'name': '',
             'children': self.getchildren(0, self.start_row, len(self.columns[0]) - 1)
         }
+        self.generatorxml()
 
     def getchildren(self, depth, fromindex, toindex):
         children = []
@@ -47,17 +47,16 @@ class CatalogFormatter:
         self.xml = str(generator)
         print(self.xml)
 
-    def outputfile(self):
-        self.generatorxml()
-        file = open(self.outputpath, 'wb')
+    def outputfile(self, outputpath):
+        file = open(outputpath, 'wb')
         file.write(self.xml.encode('utf-8'))
         file.flush()
         file.close()
 
 if __name__ == '__main__':
-    ExcelPath = r'C:\Users\baiya\Desktop\资源目录2版 - 副本Formatted.xlsx'
+    ExcelPath = r'C:\Users\baiya\Desktop\资源目录4版.xlsx'
     outputpath = r'C:\Users\baiya\Desktop\catalog.xml'
     max_depth = 5
 
-    catalogFormatter = CatalogFormatter(ExcelPath, outputpath, max_depth, 3)
-    catalogFormatter.outputfile()
+    catalogFormatter = CatalogFormatter(ExcelPath, max_depth, 3)
+    catalogFormatter.outputfile(outputpath)
