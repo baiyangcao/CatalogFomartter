@@ -21,7 +21,7 @@ class CatalogFormatter:
 
     def getchildren(self, depth, fromindex, toindex):
         children = []
-        if depth < max_depth:
+        if depth < self.max_depth:
             name = None
             for i in range(fromindex, toindex + 1):
                 if self.columns[depth][i].value or i == toindex:
