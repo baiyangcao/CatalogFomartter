@@ -1,0 +1,39 @@
+<h1 id="概述">概述</h1>
+<p>用于将excel树形结构生成指定的XML文件，如下Excel：</p>
+<div class="figure">
+<img src="excel.JPG" alt="excel.jpg" />
+<p class="caption">excel.jpg</p>
+</div>
+<p>生成XML为：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;NodeMap&gt;
+    &lt;NodeMapItem Depth=&quot;1&quot; ID=&quot;e5c80e50-6054-11e6-a14b-083e8e5f5446&quot; OperCode=&quot;1&quot; Path=&quot;01&quot; TagFilter=&quot;(TagName=&#39;01&#39;)&quot; Title=&quot;01&quot;&gt;
+        &lt;NodeMapItem Depth=&quot;2&quot; ID=&quot;e5c80e51-6054-11e6-bc24-083e8e5f5446&quot; OperCode=&quot;1-1&quot; Path=&quot;0101&quot; TagFilter=&quot;(TagName=&#39;0101&#39;)&quot; Title=&quot;0101&quot;&gt;
+            &lt;NodeMapItem Depth=&quot;3&quot; ID=&quot;e5c80e52-6054-11e6-a6be-083e8e5f5446&quot; OperCode=&quot;1-1-1&quot; Path=&quot;010101&quot; TagFilter=&quot;(TagName=&#39;010101&#39;)&quot; Title=&quot;010101&quot;/&gt;
+            &lt;NodeMapItem Depth=&quot;3&quot; ID=&quot;e5c83568-6054-11e6-9f18-083e8e5f5446&quot; OperCode=&quot;1-1-2&quot; Path=&quot;010102&quot; TagFilter=&quot;(TagName=&#39;010102&#39;)&quot; Title=&quot;010102&quot;/&gt;
+        &lt;/NodeMapItem&gt;
+        &lt;NodeMapItem Depth=&quot;2&quot; ID=&quot;e5c83569-6054-11e6-a579-083e8e5f5446&quot; OperCode=&quot;1-2&quot; Path=&quot;0102&quot; TagFilter=&quot;(TagName=&#39;0102&#39;)&quot; Title=&quot;0102&quot;&gt;
+            &lt;NodeMapItem Depth=&quot;3&quot; ID=&quot;e5c8356a-6054-11e6-a34d-083e8e5f5446&quot; OperCode=&quot;1-2-1&quot; Path=&quot;010201&quot; TagFilter=&quot;(TagName=&#39;010201&#39;)&quot; Title=&quot;010201&quot;/&gt;
+            &lt;NodeMapItem Depth=&quot;3&quot; ID=&quot;e5c8356b-6054-11e6-9bd1-083e8e5f5446&quot; OperCode=&quot;1-2-2&quot; Path=&quot;010202&quot; TagFilter=&quot;(TagName=&#39;010202&#39;)&quot; Title=&quot;010202&quot;/&gt;
+        &lt;/NodeMapItem&gt;
+    &lt;/NodeMapItem&gt;
+&lt;/NodeMap&gt;</code></pre>
+<h1 id="使用">使用</h1>
+<p>直接运行<code>Generate.py</code>脚本即可，会根据<code>config.py</code>文件的配置生成xml文件</p>
+<h1 id="配置">配置</h1>
+<p><code>config.py</code>文件配置如下：</p>
+<pre><code>CONFIG = [
+    {
+        &#39;EXCEL_PATH&#39;: &#39;./*.xlsx&#39;,
+        &#39;OUTPUT_PATH&#39;: &#39;./%(filename)s.xml&#39;,
+        &#39;MAX_DEPTH&#39;: 5,
+        &#39;START_ROW&#39;: 3
+    }
+]</code></pre>
+<p><code>CONFIG</code>数组变量每一个元素为字典对象，配置相应的参数</p>
+<ul>
+<li><code>EXCEL_PATH</code>: 配置excel文件路径，支持'*'通配符的使用</li>
+<li><code>OUTPUT_PATH</code>: 配置相应的导出文件路径，支持格式化参数<code>%(filename)s</code>表示对应文件名称</li>
+<li><code>MAX_DEPTH</code>: 树结构的最大深度，即Excel中的前几列为树结构</li>
+<li><code>START_ROW</code>: 生成xml时跳过Excel中的前几行</li>
+</ul>
